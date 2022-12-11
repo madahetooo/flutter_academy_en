@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_academy_en/basic_widgets.dart';
+import 'package:flutter_academy_en/bottom_navigation_bar_widget.dart';
+import 'package:flutter_academy_en/grid_image_widget.dart';
+import 'package:flutter_academy_en/toast_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -88,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BasicWidgetScreen()));
+                          builder: (context) => BottomNavigationBarWidget()));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20),
