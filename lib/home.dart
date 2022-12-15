@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_academy_en/basic_widgets.dart';
-import 'package:flutter_academy_en/bmi_calculator.dart';
-import 'package:flutter_academy_en/bottom_navigation_bar_widget.dart';
-import 'package:flutter_academy_en/grid_image_widget.dart';
-import 'package:flutter_academy_en/toast_widget.dart';
+import 'package:flutter_academy_en/basic_widget_apps/bottom_navigation_bar_widget.dart';
+import 'package:flutter_academy_en/bmi_calculator/bmi_calculator.dart';
 import 'package:flutter_academy_en/todolist_app/todolist_app.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -118,10 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BMICalculator()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BMICalculator()));
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20),
@@ -138,18 +133,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: const Center(
                     child: Text(
                       'BMI Calculator App',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ),
                 ),
               ),
               GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TodoListApp()));
-                  },
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TodoListApp()));
+                },
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   margin: const EdgeInsets.all(20),
@@ -165,27 +159,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: const Center(
                     child: Text(
                       'Todolist App',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(20),
-                margin: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 4),
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.green,
-                        offset: Offset(6.0, 6.0),
-                      )
-                    ]),
-                child: const Center(
-                  child: Text(
-                    'World Timer App',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true)
+                      .pushNamed('/loading_screen');
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 4),
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.green,
+                          offset: Offset(6.0, 6.0),
+                        )
+                      ]),
+                  child: const Center(
+                    child: Text(
+                      'World Timer App',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
                   ),
                 ),
               ),

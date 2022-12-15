@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_academy_en/home.dart';
-import 'package:flutter_academy_en/login.dart';
+import 'package:flutter_academy_en/auth_system/login.dart';
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
