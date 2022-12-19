@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_academy_en/basic_widget_apps/bottom_navigation_bar_widget.dart';
 import 'package:flutter_academy_en/bmi_calculator/bmi_calculator.dart';
+import 'package:flutter_academy_en/chat_app/ui/chats_screen.dart';
 import 'package:flutter_academy_en/todolist_app/todolist_app.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -191,22 +192,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(20),
-                margin: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 4),
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.green,
-                        offset: Offset(6.0, 6.0),
-                      )
-                    ]),
-                child: const Center(
-                  child: Text(
-                    'Chat App',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ChatsScreen()));
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 4),
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.green,
+                          offset: Offset(6.0, 6.0),
+                        )
+                      ]),
+                  child: const Center(
+                    child: Text(
+                      'Chat App',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
                   ),
                 ),
               ),
