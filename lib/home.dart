@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_academy_en/auth_system/tabbar_widget.dart';
 import 'package:flutter_academy_en/basic_widget_apps/bottom_navigation_bar_widget.dart';
 import 'package:flutter_academy_en/bmi_calculator/bmi_calculator.dart';
-import 'package:flutter_academy_en/chat_app/ui/chats_screen.dart';
+import 'package:flutter_academy_en/chat_app/ui/chats_list/chats_screen.dart';
 import 'package:flutter_academy_en/todolist_app/todolist_app.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: Drawer(
         child: Column(
-          children: const [
+          children: [
             UserAccountsDrawerHeader(
               accountName: Text(
                 "Eslam Medhat",
@@ -74,6 +77,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               title: Text('Log out'),
               leading: Icon(Icons.logout),
+              onTap: () async {
+                await GoogleSignIn().signOut();
+                await FirebaseAuth.instance.signOut();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TabbarWidget()));
+              },
             ),
           ],
         ),
@@ -193,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ChatsScreen()));
                 },
@@ -212,7 +221,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: const Center(
                     child: Text(
                       'Chat App',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ),
                 ),
