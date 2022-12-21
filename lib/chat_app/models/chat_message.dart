@@ -24,8 +24,8 @@ class ChatMessage {
   });
 }
 
-class ChatMessages with ChangeNotifier {
-  List<ChatMessage> _chatMessages = [
+// class ChatMessages with ChangeNotifier {
+  List<ChatMessage> chatMessages = [
     ChatMessage(
       text: "Hi Eslam",
       messageType: ChatMessageType.text,
@@ -64,9 +64,9 @@ class ChatMessages with ChangeNotifier {
     ),
   ];
 
-  void addMessage(ChatMessage message){
-    _chatMessages.add(message);
-    notifyListeners();
-  }
-  List<ChatMessage> get getMessageList => _chatMessages;
-}
+  // void addMessage(ChatMessage message){
+  //   _chatMessages.add(message);
+  //   notifyListeners();
+  // }
+  List<ChatMessage> get getMessageList => chatMessages;
+// }
