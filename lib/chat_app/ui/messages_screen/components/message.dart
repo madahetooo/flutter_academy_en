@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_academy_en/chat_app/models/chat_message.dart';
+import 'package:flutter_academy_en/chat_app/ui/messages_screen/components/message_image.dart';
 import 'package:flutter_academy_en/chat_app/ui/messages_screen/components/message_text.dart';
 
 class Message extends StatelessWidget {
@@ -18,6 +19,8 @@ class Message extends StatelessWidget {
       switch (message.messageType) {
         case ChatMessageType.text:
           return MessageText(message: message);
+        case ChatMessageType.image:
+          return MessageImage(message:message, index: index);
         default:
           return SizedBox();
       }

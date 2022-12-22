@@ -88,7 +88,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                               'senderName': user?.displayName,
                               'senderImage':user?.photoURL,
                               'type':1,
-                              'timestamp':DateTime.now(),
+                              'time':DateTime.now(),
                             };
                             firestore.collection('messages').add(document);
                             setState(() {
@@ -143,7 +143,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                         'senderName': user?.displayName,
                         'senderImage':user?.photoURL,
                         'type':1,
-                        'timestamp':DateTime.now(),
+                        'time':DateTime.now(),
                       };
                       firestore.collection('messages').add(document);
 
