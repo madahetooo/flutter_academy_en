@@ -1,4 +1,4 @@
-package com.example.flutter_academy_en
+package com.bamboogeeks.efhmnr
 
 import io.flutter.embedding.android.FlutterActivity
 
