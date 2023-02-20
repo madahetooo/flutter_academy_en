@@ -62,5 +62,14 @@ class DatabaseHelper {
     Database? db = await instance.database;
     return await db?.delete(table, where: '$columnId = ?', whereArgs: [id]);
   }
-
+  Future<int?> update(Map<String, dynamic> toDo) async {
+    Database? db = await instance.database;
+    int id = toDo[columnId];
+    return await db?.update(
+      table,
+      toDo,
+      where: '$columnId = ?',
+      whereArgs: [id],
+    );
+  }
 }

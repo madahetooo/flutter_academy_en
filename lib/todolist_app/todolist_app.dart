@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_academy_en/todolist_app/database_helper.dart';
 
@@ -60,14 +61,19 @@ class _TodoListAppState extends State<TodoListApp> {
     },future:  queryAllTodosInTable(),);
   }
 
-  void displayAlertDialog() {
-    todoController.text = "";
+  void displayAlertDialog([Map<String, dynamic>? todo]) {
+    // todoController.text = "";
+    todoController.text = todo != null ? todo['todo'] : '';
+    todoEdited = todo != null ? todo['todo'] : '';
     showDialog(
         context: context,
         builder: (context) {
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
-              title: const Text("Add a Task"),
+              // title: const Text("Add a Task"),
+              title: todo != null
+                  ? const Text('Update Task')
+                  : const Text('Add Task'),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
@@ -88,13 +94,13 @@ class _TodoListAppState extends State<TodoListApp> {
                   ),
                   MaterialButton(
                     color: Colors.purple,
-                    child: const Text(
-                      "Add",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                      ),
-                    ),
+                    child: todo != null
+                        ? const Text('Update Task',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18.0))
+                        : const Text('Add Task',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18.0)),
                     onPressed: () {
                       if (todoController.text.isEmpty) {
                         setState(() {
@@ -107,7 +113,9 @@ class _TodoListAppState extends State<TodoListApp> {
                           validated = false;
                         });
                       } else {
-                        addTodo();
+                        todo != null
+                            ? updateToDoTask(todo['id'])
+                            : addToDoTask();
                       }
                     },
                   ),
@@ -117,19 +125,51 @@ class _TodoListAppState extends State<TodoListApp> {
           });
         });
   }
+  void updateToDoTask(int id) async {
+    Map<String, dynamic> todo = {
+      DatabaseHelper.columnId: id,
+      DatabaseHelper.columnName: todoEdited,
+    };
+    await dbHelper.update(todo);
+    if (kDebugMode) {
+      print(id);
+    }
 
-  void addTodo() async {
-    Map<String, dynamic> todo = {DatabaseHelper.columnName: todoEdited};
-    final id = await dbHelper.insertTodo(todo);
-    print(id);
-    Navigator.of(context, rootNavigator: true).pop();
-    todoEdited = "";
-    setState(() {
-      validated = true;
-      errorMessage = "";
-    });
+    if (mounted) {
+      Navigator.of(context, rootNavigator: true).pop();
+
+      todoEdited = '';
+      setState(() {
+        validated = true;
+        errorMessage = '';
+      });
+    }
   }
+  void addToDoTask() async {
+    Map<String, dynamic> todo = {
+      DatabaseHelper.columnName: todoEdited,
+    };
+    final id = await dbHelper.insertTodo(todo);
+    if (kDebugMode) {
+      print(id);
+    }
 
+    if (mounted) {
+      Navigator.of(context, rootNavigator: true).pop();
+
+      todoEdited = '';
+      setState(() {
+        validated = true;
+        errorMessage = '';
+      });
+    }
+  }
+  void deleteToDoTask(int id) async {
+    dbHelper.delete(id);
+    if (kDebugMode) {
+      print('Task Deleted');
+    }
+  }
   Future<bool> queryAllTodosInTable() async{
     myTodos = [];
     children = [];
@@ -141,6 +181,34 @@ class _TodoListAppState extends State<TodoListApp> {
        margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
        child: ListTile(
          title:  Text(todo['todo']),
+         trailing: Row(
+           mainAxisSize: MainAxisSize.min,
+           children: [
+             IconButton(
+               onPressed: () {
+                 displayAlertDialog(todo);
+                 if (kDebugMode) {
+                   print('Task Edited');
+                 }
+                 setState(() {});
+               },
+               icon: const Icon(
+                 Icons.edit,
+                 color: Colors.blueAccent,
+               ),
+             ),
+             IconButton(
+               onPressed: () {
+                 deleteToDoTask(todo['id']);
+                 setState(() {});
+               },
+               icon: const Icon(
+                 Icons.delete,
+                 color: Colors.red,
+               ),
+             ),
+           ],
+         ),
          onLongPress: () {
            dbHelper.delete(todo['_id']);
            setState(() {
@@ -153,6 +221,8 @@ class _TodoListAppState extends State<TodoListApp> {
     return Future.value(true);
   }
 }
+
+
 // return Scaffold(
 // appBar: AppBar(
 // title: const Text("Todolist App"),
