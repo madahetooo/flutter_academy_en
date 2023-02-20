@@ -52,7 +52,7 @@ class _ProductsCategoriesScreenState extends State<ProductsCategoriesScreen> {
                     child: TextField(
                         decoration: InputDecoration(
                           //labelText: 'Search',
-                          hintText: 'Enter a product name',
+                          hintText: 'Enter a product name ',
                           border: InputBorder.none,
                         ),
                         style: TextStyle(
